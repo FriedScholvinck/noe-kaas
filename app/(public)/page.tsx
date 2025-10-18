@@ -29,12 +29,12 @@ export default function HomePage() {
 
             <div className="text-center">
               <Truck className="w-16 h-16 text-cheese-gold mb-4 mx-auto" />
-              <h3 className="font-serif text-2xl font-bold">Betrouwbaar</h3>
+              <h3 className="font-serif text-2xl font-bold">Kwaliteit</h3>
             </div>
 
             <div className="text-center">
               <Users className="w-16 h-16 text-cheese-gold mb-4 mx-auto" />
-              <h3 className="font-serif text-2xl font-bold">Kwaliteit</h3>
+              <h3 className="font-serif text-2xl font-bold">Betrouwbaar</h3>
             </div>
           </div>
         </div>
