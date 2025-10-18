@@ -149,18 +149,38 @@ const DEMO_PRODUCTS = [
 async function main() {
   console.log("🌱 Starting seed...")
 
-  const adminEmail = process.env.SEED_ADMIN_EMAIL || "admin@noekaas.nl"
-  
-  const admin = await prisma.user.upsert({
-    where: { email: adminEmail },
-    update: {},
+  const admin1 = await prisma.user.upsert({
+    where: { email: "fried.scholvinck@gmail.com" },
+    update: { role: "admin" },
     create: {
-      email: adminEmail,
-      name: "Admin",
+      email: "fried.scholvinck@gmail.com",
+      name: "Fried Scholvinck",
       role: "admin",
     },
   })
-  console.log(`✅ Admin user: ${admin.email}`)
+  console.log(`✅ Admin user: ${admin1.email}`)
+
+  const admin2 = await prisma.user.upsert({
+    where: { email: "hein@jeroennoekaas.nl" },
+    update: { role: "admin" },
+    create: {
+      email: "hein@jeroennoekaas.nl",
+      name: "Hein",
+      role: "admin",
+    },
+  })
+  console.log(`✅ Admin user: ${admin2.email}`)
+
+  const client = await prisma.user.upsert({
+    where: { email: "fried.scholvinck@proton.me" },
+    update: { role: "client" },
+    create: {
+      email: "fried.scholvinck@proton.me",
+      name: "Fried (Client)",
+      role: "client",
+    },
+  })
+  console.log(`✅ Client user: ${client.email}`)
 
   for (const imgData of DEMO_IMAGES) {
     await prisma.imageAsset.upsert({
