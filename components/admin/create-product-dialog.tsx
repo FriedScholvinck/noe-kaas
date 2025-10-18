@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { createProduct } from "@/app/admin/products/actions"
-import { CHEESE_TYPES } from "@/lib/filters"
+import { FLORA_TYPES, PACKAGING_TYPES, MILK_TYPES, COUNTRIES } from "@/lib/filters"
 
 type ImageAsset = {
   id: string
@@ -38,8 +38,10 @@ export function CreateProductDialog({
         sku: formData.get("sku") as string,
         name: formData.get("name") as string,
         description: formData.get("description") as string || null,
-        region: formData.get("region") as string || null,
-        type: formData.get("type") as string || null,
+        country: formData.get("country") as string || null,
+        floraType: formData.get("floraType") as string || null,
+        packagingType: formData.get("packagingType") as string || null,
+        milkType: formData.get("milkType") as string || null,
         ripeningMonths: formData.get("ripeningMonths") ? parseInt(formData.get("ripeningMonths") as string) : null,
         tags: (formData.get("tags") as string) || "",
         pricePerKg: formData.get("pricePerKg") ? parseFloat(formData.get("pricePerKg") as string) : null,
@@ -81,18 +83,63 @@ export function CreateProductDialog({
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="region">Regio</Label>
-              <Input id="region" name="region" placeholder="Noord-Holland" />
+              <Label htmlFor="country">Land van herkomst</Label>
+              <Select name="country">
+                <SelectTrigger id="country">
+                  <SelectValue placeholder="Selecteer land" />
+                </SelectTrigger>
+                <SelectContent>
+                  {COUNTRIES.map((country) => (
+                    <SelectItem key={country.value} value={country.value}>
+                      {country.flag} {country.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <div>
-              <Label htmlFor="type">Type</Label>
-              <Select name="type">
-                <SelectTrigger id="type">
-                  <SelectValue placeholder="Selecteer type" />
+              <Label htmlFor="floraType">Flora type</Label>
+              <Select name="floraType">
+                <SelectTrigger id="floraType">
+                  <SelectValue placeholder="Selecteer flora type" />
                 </SelectTrigger>
                 <SelectContent>
-                  {CHEESE_TYPES.map((type) => (
+                  {FLORA_TYPES.map((type) => (
+                    <SelectItem key={type.value} value={type.value}>
+                      {type.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="packagingType">Verpakking</Label>
+              <Select name="packagingType">
+                <SelectTrigger id="packagingType">
+                  <SelectValue placeholder="Selecteer verpakking" />
+                </SelectTrigger>
+                <SelectContent>
+                  {PACKAGING_TYPES.map((type) => (
+                    <SelectItem key={type.value} value={type.value}>
+                      {type.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <Label htmlFor="milkType">Melksoort</Label>
+              <Select name="milkType">
+                <SelectTrigger id="milkType">
+                  <SelectValue placeholder="Selecteer melksoort" />
+                </SelectTrigger>
+                <SelectContent>
+                  {MILK_TYPES.map((type) => (
                     <SelectItem key={type.value} value={type.value}>
                       {type.label}
                     </SelectItem>

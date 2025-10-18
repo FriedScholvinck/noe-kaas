@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { useCart } from "@/lib/cart-context"
 import { Trash2 } from "lucide-react"
 import { CartButton } from "./cart-button"
+import { LoadPreviousOrder } from "./load-previous-order"
 
 export function CartDrawer() {
   const [open, setOpen] = useState(false)
@@ -76,25 +77,36 @@ export function CartDrawer() {
             <DialogTitle>Winkelmandje ({itemCount})</DialogTitle>
           </DialogHeader>
           
-          <div className="space-y-3 max-h-96 overflow-y-auto">
-            {items.map((item) => (
-              <div key={item.productId} className="flex items-center justify-between p-3 border rounded">
-                <div className="flex-1">
-                  <p className="font-medium">{item.productName}</p>
-                  <p className="text-sm text-muted-foreground">
-                    {item.quantity} {item.unit}
-                  </p>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => removeItem(item.productId)}
-                >
-                  <Trash2 className="w-4 h-4" />
-                </Button>
-              </div>
-            ))}
+          <div className="mb-3">
+            <LoadPreviousOrder />
           </div>
+
+          {items.length === 0 ? (
+            <div className="text-center py-8 text-muted-foreground">
+              <p>Je winkelmandje is leeg</p>
+              <p className="text-sm mt-2">Laad een vorige bestelling of voeg producten toe</p>
+            </div>
+          ) : (
+            <div className="space-y-3 max-h-96 overflow-y-auto">
+              {items.map((item) => (
+                <div key={item.productId} className="flex items-center justify-between p-3 border rounded">
+                  <div className="flex-1">
+                    <p className="font-medium">{item.productName}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {item.quantity} {item.unit}
+                    </p>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => removeItem(item.productId)}
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          )}
 
           <DialogFooter className="flex-col gap-2">
             <Button 

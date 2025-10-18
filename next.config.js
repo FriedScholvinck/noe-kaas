@@ -14,6 +14,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**.cheese-api.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
     ],
   },
 }

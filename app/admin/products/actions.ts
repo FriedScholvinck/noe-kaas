@@ -8,8 +8,10 @@ type ProductInput = {
   sku: string
   name: string
   description: string | null
-  region: string | null
-  type: string | null
+  country: string | null
+  floraType: string | null
+  packagingType: string | null
+  milkType: string | null
   ripeningMonths: number | null
   tags: string
   pricePerKg: number | null

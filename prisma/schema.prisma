@@ -62,8 +62,10 @@ model Product {
   name           String
   slug           String   @unique
   description    String?
-  region         String?
-  type           String?
+  country        String?
+  floraType      String?
+  packagingType  String?
+  milkType       String?
   ripeningMonths Int?
   tags           String
   pricePerKg     Float?

@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Pencil, Trash2 } from "lucide-react"
 import { EditProductDialog } from "./edit-product-dialog"
 import { deleteProduct } from "@/app/admin/products/actions"
+import { COUNTRIES } from "@/lib/filters"
 
 type Product = {
   id: string
@@ -15,8 +16,10 @@ type Product = {
   slug: string
   sku: string
   description: string | null
-  region: string | null
-  type: string | null
+  country: string | null
+  floraType: string | null
+  packagingType: string | null
+  milkType: string | null
   ripeningMonths: number | null
   tags: string
   pricePerKg: number | null
@@ -64,13 +67,17 @@ export function ProductList({ products, images }: { products: Product[], images:
                 <div className="flex-1">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="font-serif text-lg font-bold">{product.name}</h3>
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-serif text-lg font-bold">{product.name}</h3>
+                        {product.country && (
+                          <span className="text-xl">
+                            {COUNTRIES.find((c) => c.value === product.country)?.flag}
+                          </span>
+                        )}
+                      </div>
                       <p className="text-sm text-muted-foreground">
                         SKU: {product.sku} · Slug: {product.slug}
                       </p>
-                      {product.region && (
-                        <p className="text-sm text-muted-foreground mt-1">📍 {product.region}</p>
-                      )}
                     </div>
 
                     <div className="flex gap-2">
@@ -98,7 +105,9 @@ export function ProductList({ products, images }: { products: Product[], images:
                   )}
 
                   <div className="flex flex-wrap gap-2 mt-2">
-                    {product.type && <Badge variant="secondary">{product.type}</Badge>}
+                    {product.floraType && <Badge variant="secondary">{product.floraType}</Badge>}
+                    {product.packagingType && <Badge variant="outline">{product.packagingType}</Badge>}
+                    {product.milkType && <Badge>{product.milkType}</Badge>}
                     {product.ripeningMonths && (
                       <Badge variant="outline">{product.ripeningMonths} mnd</Badge>
                     )}

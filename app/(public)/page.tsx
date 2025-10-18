@@ -24,17 +24,17 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto">
             <div className="text-center">
               <Award className="w-16 h-16 text-cheese-gold mb-4 mx-auto" />
-              <h3 className="font-serif text-2xl font-bold">Ambacht</h3>
+              <h3 className="font-serif text-2xl font-bold">Snel</h3>
             </div>
 
             <div className="text-center">
               <Truck className="w-16 h-16 text-cheese-gold mb-4 mx-auto" />
-              <h3 className="font-serif text-2xl font-bold">Dagelijks vers</h3>
+              <h3 className="font-serif text-2xl font-bold">Betrouwbaar</h3>
             </div>
 
             <div className="text-center">
               <Users className="w-16 h-16 text-cheese-gold mb-4 mx-auto" />
-              <h3 className="font-serif text-2xl font-bold">Familiebedrijf</h3>
+              <h3 className="font-serif text-2xl font-bold">Kwaliteit</h3>
             </div>
           </div>
         </div>

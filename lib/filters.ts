@@ -1,7 +1,9 @@
 export type ProductFilters = {
   search?: string
-  type?: string
-  region?: string
+  floraType?: string
+  packagingType?: string
+  milkType?: string
+  country?: string
   ripeningMin?: number
   ripeningMax?: number
   sortBy?: "name" | "ripening-asc" | "ripening-desc"
@@ -15,17 +17,29 @@ export function applyProductFilters(products: any[], filters: ProductFilters) {
     filtered = filtered.filter(
       (p) =>
         p.name.toLowerCase().includes(searchLower) ||
+        p.description?.toLowerCase().includes(searchLower) ||
         (typeof p.tags === 'string' ? p.tags.toLowerCase().includes(searchLower) : false) ||
-        p.region?.toLowerCase().includes(searchLower)
+        p.floraType?.toLowerCase().includes(searchLower) ||
+        p.packagingType?.toLowerCase().includes(searchLower) ||
+        p.milkType?.toLowerCase().includes(searchLower) ||
+        p.sku?.toLowerCase().includes(searchLower)
     )
   }
 
-  if (filters.type) {
-    filtered = filtered.filter((p) => p.type === filters.type)
+  if (filters.floraType) {
+    filtered = filtered.filter((p) => p.floraType === filters.floraType)
   }
 
-  if (filters.region) {
-    filtered = filtered.filter((p) => p.region === filters.region)
+  if (filters.packagingType) {
+    filtered = filtered.filter((p) => p.packagingType === filters.packagingType)
+  }
+
+  if (filters.milkType) {
+    filtered = filtered.filter((p) => p.milkType === filters.milkType)
+  }
+
+  if (filters.country) {
+    filtered = filtered.filter((p) => p.country === filters.country)
   }
 
   if (filters.ripeningMin !== undefined) {
@@ -51,18 +65,39 @@ export function applyProductFilters(products: any[], filters: ProductFilters) {
   return filtered
 }
 
-export const CHEESE_TYPES = [
+export const FLORA_TYPES = [
+  { value: "witflora", label: "Witflora (zacht)" },
+  { value: "roodflora", label: "Roodflora" },
   { value: "hard", label: "Hard" },
-  { value: "soft", label: "Zacht" },
-  { value: "semi-hard", label: "Semi-hard" },
-  { value: "blue", label: "Schimmel" },
+  { value: "blauwader", label: "Blauwader" },
 ]
 
-export const DUTCH_REGIONS = [
-  "Noord-Holland",
-  "Zuid-Holland",
-  "Friesland",
-  "Overijssel",
-  "Utrecht",
+export const PACKAGING_TYPES = [
+  { value: "wiel", label: "Wiel" },
+  { value: "stuk", label: "Stuk" },
+  { value: "plakken", label: "Plakken" },
+  { value: "geraspt", label: "Geraspt" },
+  { value: "hotelblok", label: "Hotelblok" },
+  { value: "blokjes", label: "Blokjes" },
+  { value: "smeerkaas", label: "Smeerkaas" },
+  { value: "zuivel", label: "Zuivel" },
+  { value: "kaasfondue", label: "Kaasfondue" },
+]
+
+export const MILK_TYPES = [
+  { value: "buffel", label: "Buffel" },
+  { value: "geit", label: "Geit" },
+  { value: "koe", label: "Koe" },
+  { value: "schaap", label: "Schaap" },
+]
+
+export const COUNTRIES = [
+  { value: "NL", label: "Nederland", flag: "🇳🇱" },
+  { value: "FR", label: "Frankrijk", flag: "🇫🇷" },
+  { value: "IT", label: "Italië", flag: "🇮🇹" },
+  { value: "ES", label: "Spanje", flag: "🇪🇸" },
+  { value: "BE", label: "België", flag: "🇧🇪" },
+  { value: "CH", label: "Zwitserland", flag: "🇨🇭" },
+  { value: "DE", label: "Duitsland", flag: "🇩🇪" },
 ]
 

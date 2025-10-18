@@ -5,7 +5,7 @@ import Image from "next/image"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { applyProductFilters, type ProductFilters } from "@/lib/filters"
+import { applyProductFilters, type ProductFilters, COUNTRIES } from "@/lib/filters"
 import { AddToCartButton } from "./add-to-cart-button"
 
 type Product = {
@@ -13,8 +13,10 @@ type Product = {
   name: string
   slug: string
   description: string | null
-  region: string | null
-  type: string | null
+  country: string | null
+  floraType: string | null
+  packagingType: string | null
+  milkType: string | null
   ripeningMonths: number | null
   tags: string
   pricePerKg: number | null
@@ -34,12 +36,14 @@ export function ProductGrid({
   const filteredProducts = useMemo(() => {
     const filters: ProductFilters = {
       search: searchParams.search,
-      type: searchParams.type,
-      region: searchParams.region,
+      floraType: searchParams.floraType,
+      packagingType: searchParams.packagingType,
+      milkType: searchParams.milkType,
+      country: searchParams.country,
       sortBy: searchParams.sortBy as any,
     }
     return applyProductFilters(products, filters)
-  }, [products, searchParams.search, searchParams.type, searchParams.region, searchParams.sortBy])
+  }, [products, searchParams.search, searchParams.floraType, searchParams.packagingType, searchParams.milkType, searchParams.country, searchParams.sortBy])
 
   if (filteredProducts.length === 0) {
     return (
@@ -69,11 +73,14 @@ export function ProductGrid({
           </div>
           
           <CardContent className="pt-4">
-            <h3 className="font-serif text-xl font-bold mb-2">{product.name}</h3>
-            
-            {product.region && (
-              <p className="text-sm text-muted-foreground mb-2">📍 {product.region}</p>
-            )}
+            <div className="flex items-start justify-between mb-2">
+              <h3 className="font-serif text-xl font-bold">{product.name}</h3>
+              {product.country && (
+                <span className="text-2xl">
+                  {COUNTRIES.find((c) => c.value === product.country)?.flag}
+                </span>
+              )}
+            </div>
             
             {product.description && (
               <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
@@ -82,11 +89,17 @@ export function ProductGrid({
             )}
 
             <div className="flex flex-wrap gap-2 mb-3">
-              {product.type && (
-                <Badge variant="secondary">{product.type}</Badge>
+              {product.floraType && (
+                <Badge variant="secondary">{product.floraType}</Badge>
+              )}
+              {product.packagingType && (
+                <Badge variant="outline">{product.packagingType}</Badge>
+              )}
+              {product.milkType && (
+                <Badge>{product.milkType}</Badge>
               )}
               {product.ripeningMonths && (
-                <Badge variant="outline">{product.ripeningMonths} mnd rijping</Badge>
+                <Badge variant="outline">{product.ripeningMonths} mnd</Badge>
               )}
             </div>
 
