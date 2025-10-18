@@ -7,8 +7,6 @@ test('portaal shows filters and products without login', async ({ page }) => {
   
   await expect(page.getByRole('heading', { name: 'Filters' })).toBeVisible()
   
-  await expect(page.getByText('Login om te bestellen', { exact: false })).toBeVisible()
-  
   const addButtons = page.getByRole('button', { name: /toevoegen/i })
   await expect(addButtons.first()).not.toBeVisible()
 })

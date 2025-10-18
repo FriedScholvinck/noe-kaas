@@ -33,7 +33,7 @@ export default async function PortaalPage({
               Ons assortiment
             </h1>
             <p className="text-muted-foreground">
-              {session ? "Klik op een product om te bestellen" : "Login om te bestellen"}
+              {session && "Klik op een product om te bestellen"}
             </p>
           </div>
 

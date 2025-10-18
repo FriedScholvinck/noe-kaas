@@ -115,12 +115,8 @@ export function ProductGrid({
           </CardContent>
 
           <CardFooter>
-            {isLoggedIn ? (
+            {isLoggedIn && (
               <AddToCartButton productId={product.id} productName={product.name} unit={product.unit} />
-            ) : (
-              <Badge variant="outline" className="w-full justify-center py-2">
-                Login om te bestellen
-              </Badge>
             )}
           </CardFooter>
         </Card>
