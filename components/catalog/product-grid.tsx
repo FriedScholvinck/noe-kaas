@@ -31,16 +31,15 @@ export function ProductGrid({
   searchParams: { [key: string]: string | undefined }
   isLoggedIn: boolean
 }) {
-  const filters: ProductFilters = {
-    search: searchParams.search,
-    type: searchParams.type,
-    region: searchParams.region,
-    sortBy: searchParams.sortBy as any,
-  }
-
   const filteredProducts = useMemo(() => {
+    const filters: ProductFilters = {
+      search: searchParams.search,
+      type: searchParams.type,
+      region: searchParams.region,
+      sortBy: searchParams.sortBy as any,
+    }
     return applyProductFilters(products, filters)
-  }, [products, filters])
+  }, [products, searchParams.search, searchParams.type, searchParams.region, searchParams.sortBy])
 
   if (filteredProducts.length === 0) {
     return (
@@ -93,7 +92,7 @@ export function ProductGrid({
 
             {product.tags && (
               <div className="flex flex-wrap gap-1">
-                {product.tags.split(',').map((tag) => (
+                {product.tags.split(',').map((tag: string) => (
                   <span key={tag} className="text-xs text-muted-foreground">
                     #{tag.trim()}
                   </span>
