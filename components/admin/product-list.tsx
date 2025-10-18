@@ -18,7 +18,7 @@ type Product = {
   region: string | null
   type: string | null
   ripeningMonths: number | null
-  tags: string[]
+  tags: string
   pricePerKg: number | null
   unit: string
   image: { id: string; url: string; alt: string } | null

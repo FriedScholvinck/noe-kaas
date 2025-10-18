@@ -15,7 +15,7 @@ export function applyProductFilters(products: any[], filters: ProductFilters) {
     filtered = filtered.filter(
       (p) =>
         p.name.toLowerCase().includes(searchLower) ||
-        p.tags?.some((tag: string) => tag.toLowerCase().includes(searchLower)) ||
+        (typeof p.tags === 'string' ? p.tags.toLowerCase().includes(searchLower) : false) ||
         p.region?.toLowerCase().includes(searchLower)
     )
   }

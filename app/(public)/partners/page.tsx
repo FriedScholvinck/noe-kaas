@@ -29,42 +29,32 @@ const partners = [
 
 export default function PartnersPage() {
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-serif font-bold mb-6 text-cheese-navy">
-          Onze partners
-        </h1>
-        
-        <p className="text-lg mb-12 text-muted-foreground">
-          We zijn trots om samen te werken met gerenommeerde zaken in Amsterdam en omstreken. 
-          Van restaurants tot delicatessenwinkels en koffiehuizen.
-        </p>
+    <div className="container mx-auto px-4 py-20">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-16">
+          <h1 className="text-5xl font-serif font-bold text-cheese-navy">
+            Partners
+          </h1>
+        </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
           {partners.map((partner) => (
-            <Card key={partner.name}>
-              <CardContent className="pt-6">
-                <div className="h-24 bg-cheese-cream rounded flex items-center justify-center mb-4">
-                  <span className="text-2xl font-serif font-bold text-cheese-navy">
-                    {partner.name.split(' ').map(w => w[0]).join('')}
-                  </span>
-                </div>
-                <h3 className="font-serif text-lg font-bold mb-1">{partner.name}</h3>
-                <p className="text-sm text-muted-foreground">{partner.description}</p>
-              </CardContent>
-            </Card>
+            <div key={partner.name} className="text-center">
+              <div className="h-32 bg-cheese-cream rounded-lg flex items-center justify-center mb-4">
+                <span className="text-3xl font-serif font-bold text-cheese-navy">
+                  {partner.name.split(' ').map(w => w[0]).join('')}
+                </span>
+              </div>
+              <h3 className="font-serif text-lg font-bold">{partner.name}</h3>
+            </div>
           ))}
         </div>
 
-        <div className="mt-12 p-8 bg-cheese-cream rounded-lg">
-          <h2 className="text-2xl font-serif font-bold mb-4 text-cheese-navy">
+        <div className="text-center bg-cheese-cream rounded-lg py-12 px-8">
+          <h2 className="text-3xl font-serif font-bold mb-6 text-cheese-navy">
             Ook partner worden?
           </h2>
-          <p className="text-muted-foreground mb-4">
-            We werken graag samen met horecagelegenheden en winkels die waarde hechten 
-            aan kwaliteit en persoonlijke service.
-          </p>
-          <a href="/contact" className="text-cheese-navy font-semibold hover:underline">
+          <a href="/contact" className="text-cheese-navy text-lg font-semibold hover:underline">
             Neem contact op →
           </a>
         </div>

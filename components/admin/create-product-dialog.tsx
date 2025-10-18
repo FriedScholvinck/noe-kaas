@@ -41,7 +41,7 @@ export function CreateProductDialog({
         region: formData.get("region") as string || null,
         type: formData.get("type") as string || null,
         ripeningMonths: formData.get("ripeningMonths") ? parseInt(formData.get("ripeningMonths") as string) : null,
-        tags: (formData.get("tags") as string).split(",").map(t => t.trim()).filter(Boolean),
+        tags: (formData.get("tags") as string) || "",
         pricePerKg: formData.get("pricePerKg") ? parseFloat(formData.get("pricePerKg") as string) : null,
         unit: formData.get("unit") as string || "kg",
         imageId: formData.get("imageId") as string || null,

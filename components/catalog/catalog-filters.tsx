@@ -14,7 +14,7 @@ export function CatalogFilters() {
 
   function updateFilter(key: string, value: string) {
     const params = new URLSearchParams(searchParams.toString())
-    if (value) {
+    if (value && value !== "all") {
       params.set(key, value)
     } else {
       params.delete(key)
@@ -45,14 +45,14 @@ export function CatalogFilters() {
         <div>
           <Label htmlFor="type">Soort</Label>
           <Select
-            defaultValue={searchParams.get("type") || ""}
+            defaultValue={searchParams.get("type") || "all"}
             onValueChange={(value) => updateFilter("type", value)}
           >
             <SelectTrigger id="type">
               <SelectValue placeholder="Alle soorten" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Alle soorten</SelectItem>
+              <SelectItem value="all">Alle soorten</SelectItem>
               {CHEESE_TYPES.map((type) => (
                 <SelectItem key={type.value} value={type.value}>
                   {type.label}

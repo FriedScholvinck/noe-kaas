@@ -19,7 +19,7 @@ type Product = {
   region: string | null
   type: string | null
   ripeningMonths: number | null
-  tags: string[]
+  tags: string
   pricePerKg: number | null
   unit: string
   image: { id: string } | null
@@ -58,7 +58,7 @@ export function EditProductDialog({
         region: formData.get("region") as string || null,
         type: formData.get("type") as string || null,
         ripeningMonths: formData.get("ripeningMonths") ? parseInt(formData.get("ripeningMonths") as string) : null,
-        tags: (formData.get("tags") as string).split(",").map(t => t.trim()).filter(Boolean),
+        tags: (formData.get("tags") as string) || "",
         pricePerKg: formData.get("pricePerKg") ? parseFloat(formData.get("pricePerKg") as string) : null,
         unit: formData.get("unit") as string || "kg",
         imageId: formData.get("imageId") as string || null,
@@ -160,7 +160,7 @@ export function EditProductDialog({
 
           <div>
             <Label htmlFor="tags">Tags (komma gescheiden)</Label>
-            <Input id="tags" name="tags" defaultValue={product.tags.join(", ")} />
+            <Input id="tags" name="tags" defaultValue={product.tags} />
           </div>
 
           <div>

@@ -16,7 +16,7 @@ type Product = {
   region: string | null
   type: string | null
   ripeningMonths: number | null
-  tags: string[]
+  tags: string
   pricePerKg: number | null
   unit: string
   image: { url: string; alt: string } | null
@@ -91,11 +91,11 @@ export function ProductGrid({
               )}
             </div>
 
-            {product.tags.length > 0 && (
+            {product.tags && (
               <div className="flex flex-wrap gap-1">
-                {product.tags.map((tag) => (
+                {product.tags.split(',').map((tag) => (
                   <span key={tag} className="text-xs text-muted-foreground">
-                    #{tag}
+                    #{tag.trim()}
                   </span>
                 ))}
               </div>

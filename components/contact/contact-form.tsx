@@ -44,33 +44,28 @@ export function ContactForm() {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Stuur een bericht</CardTitle>
-      </CardHeader>
-      <CardContent>
+      <CardContent className="pt-6">
         {success ? (
-          <div className="p-4 bg-green-50 text-green-800 rounded">
-            Bedankt voor uw bericht! We nemen spoedig contact op.
+          <div className="p-6 text-center">
+            <div className="text-4xl mb-4">✓</div>
+            <p className="text-lg">Bericht verstuurd</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Label htmlFor="name">Naam</Label>
-              <Input id="name" name="name" required />
+              <Input id="name" name="name" placeholder="Naam" required className="h-12" />
             </div>
             
             <div>
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" name="email" type="email" required />
+              <Input id="email" name="email" type="email" placeholder="Email" required className="h-12" />
             </div>
             
             <div>
-              <Label htmlFor="message">Bericht</Label>
-              <Textarea id="message" name="message" rows={5} required />
+              <Textarea id="message" name="message" rows={5} placeholder="Bericht" required />
             </div>
             
-            <Button type="submit" disabled={loading} className="w-full">
-              {loading ? "Verzenden..." : "Verstuur bericht"}
+            <Button type="submit" disabled={loading} className="w-full h-12">
+              {loading ? "Verzenden..." : "Verstuur"}
             </Button>
           </form>
         )}

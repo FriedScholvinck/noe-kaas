@@ -11,7 +11,7 @@ type ProductInput = {
   region: string | null
   type: string | null
   ripeningMonths: number | null
-  tags: string[]
+  tags: string
   pricePerKg: number | null
   unit: string
   imageId: string | null

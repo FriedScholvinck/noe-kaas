@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model User {
@@ -64,7 +64,7 @@ model Product {
   region         String?
   type           String?
   ripeningMonths Int?
-  tags           String[]
+  tags           String
   pricePerKg     Float?
   unit           String   @default("kg")
   imageId        String?
@@ -78,7 +78,7 @@ model Product {
 model ImageAsset {
   id        String   @id @default(cuid())
   provider  String
-  key       String
+  key       String   @unique
   url       String
   alt       String
   createdAt DateTime @default(now())
