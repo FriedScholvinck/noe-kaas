@@ -1,0 +1,13 @@
+Rules for Noë Kaas development:
+
+1. Use Server Components by default
+2. Only mark 'use client' when needed (forms, interactivity, hooks)
+3. No comments in code unless absolutely necessary
+4. Follow Dutch naming for user-facing text
+5. Use Prisma for all database operations
+6. Server Actions for mutations
+7. Zod for validation
+8. Consistent error handling
+9. Use Next.js Image component for images
+10. Follow the existing component structure
+

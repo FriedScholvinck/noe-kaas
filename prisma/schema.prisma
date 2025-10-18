@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  role          String    @default("client")
+  createdAt     DateTime  @default(now())
+  
+  accounts      Account[]
+  sessions      Session[]
+  orders        Order[]
+  handledLeads  Lead[]    @relation("handledBy")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Product {
+  id             String   @id @default(cuid())
+  sku            String   @unique
+  name           String
+  slug           String   @unique
+  description    String?
+  region         String?
+  type           String?
+  ripeningMonths Int?
+  tags           String[]
+  pricePerKg     Float?
+  unit           String   @default("kg")
+  imageId        String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  
+  image          ImageAsset? @relation(fields: [imageId], references: [id])
+  orderItems     OrderItem[]
+}
+
+model ImageAsset {
+  id        String   @id @default(cuid())
+  provider  String
+  key       String
+  url       String
+  alt       String
+  createdAt DateTime @default(now())
+  
+  products  Product[]
+}
+
+model Order {
+  id        String   @id @default(cuid())
+  userId    String
+  createdAt DateTime @default(now())
+  status    String   @default("draft")
+  
+  user      User     @relation(fields: [userId], references: [id])
+  items     OrderItem[]
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Float
+  
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Lead {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  message     String
+  source      String?
+  createdAt   DateTime @default(now())
+  handledById String?
+  
+  handledBy   User?    @relation("handledBy", fields: [handledById], references: [id])
+}
+
