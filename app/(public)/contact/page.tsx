@@ -16,21 +16,33 @@ export default function ContactPage() {
           <div className="space-y-6">
             <div className="flex items-center gap-4">
               <Mail className="w-6 h-6 text-cheese-gold" />
-              <a href="mailto:info@noekaas.nl" className="text-lg hover:text-cheese-navy">
-                info@noekaas.nl
+              <a href="mailto:hein@jeroennoekaas.nl" className="text-lg hover:text-cheese-navy">
+                hein@jeroennoekaas.nl
               </a>
             </div>
 
             <div className="flex items-center gap-4">
               <Phone className="w-6 h-6 text-cheese-gold" />
-              <a href="tel:+31201234567" className="text-lg hover:text-cheese-navy">
-                +31 (0)20 123 4567
+              <a href="tel:+31618973628" className="text-lg hover:text-cheese-navy">
+                06 18 97 36 28
               </a>
             </div>
 
-            <div className="flex items-center gap-4">
-              <MapPin className="w-6 h-6 text-cheese-gold" />
-              <span className="text-lg">Weesp, Nederland</span>
+            <div className="flex items-start gap-4">
+              <MapPin className="w-6 h-6 text-cheese-gold mt-1" />
+              <div>
+                <p className="text-lg">Flevolaan 62G</p>
+                <p className="text-lg">1382JZ Weesp</p>
+                <p className="text-lg">Nederland</p>
+                <a 
+                  href="https://www.google.com/maps/search/?api=1&query=Flevolaan+62G+1382JZ+Weesp+Nederland" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block mt-2 text-cheese-navy hover:text-cheese-gold underline"
+                >
+                  Open in Google Maps
+                </a>
+              </div>
             </div>
           </div>
 

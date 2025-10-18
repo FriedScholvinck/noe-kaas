@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/lib/db"
+import { sendContactFormEmail } from "@/lib/email"
 import { z } from "zod"
 
 const leadSchema = z.object({
@@ -16,6 +17,12 @@ export async function POST(request: NextRequest) {
 
     const lead = await db.lead.create({
       data,
+    })
+
+    await sendContactFormEmail({
+      name: data.name,
+      email: data.email,
+      message: data.message,
     })
 
     return NextResponse.json({ success: true, leadId: lead.id })

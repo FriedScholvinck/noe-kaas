@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { db } from "@/lib/db"
+import { sendOrderNotificationEmail } from "@/lib/email"
 import { z } from "zod"
 
 const orderItemSchema = z.object({
@@ -42,12 +43,32 @@ export async function POST(request: NextRequest) {
       },
       include: {
         items: true,
+        user: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
       },
+    })
+
+    const orderNumber = order.id.slice(0, 8).toUpperCase()
+
+    await sendOrderNotificationEmail({
+      orderNumber,
+      orderId: order.id,
+      customerName: order.user.name,
+      customerEmail: order.user.email,
+      items: items.map((item) => ({
+        productName: item.productName,
+        quantity: item.quantity,
+        unit: item.unit,
+      })),
     })
 
     return NextResponse.json({
       success: true,
-      orderNumber: order.id.slice(0, 8).toUpperCase(),
+      orderNumber,
       orderId: order.id,
     })
   } catch (error) {
