@@ -6,10 +6,10 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Noë Kaas - Nederlandse Kaasgroothandel",
-  description: "Familiebedrijf uit Weesp. Leveren kwaliteitskaas aan winkels en horeca in Amsterdam en omstreken.",
+  description: "Familiebedrijf uit Huizen, gevestigd in Weesp. Leveren kwaliteitskaas aan winkels en horeca in Amsterdam en omstreken.",
   openGraph: {
     title: "Noë Kaas",
-    description: "Nederlandse kaasgroothandel - ambacht, kwaliteit, betrouwbaarheid",
+    description: "Nederlandse kaasgroothandel - snel, betrouwbaar en van de beste kwaliteit",
     type: "website",
   },
 }

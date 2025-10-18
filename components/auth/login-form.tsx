@@ -11,10 +11,12 @@ export function LoginForm() {
   const [email, setEmail] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [isEmailSent, setIsEmailSent] = useState(false)
+  const [error, setError] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
+    setError("")
 
     try {
       const result = await signIn("email", {
@@ -24,12 +26,16 @@ export function LoginForm() {
       })
 
       if (result?.error) {
-        alert("Er is een fout opgetreden. Probeer het opnieuw.")
+        if (result.error.includes("NO_USER_FOUND") || result.error === "EmailSignin") {
+          setError("Dit email adres heeft geen toegang. Neem contact met ons op via het contactformulier.")
+        } else {
+          setError("Er is een fout opgetreden. Probeer het opnieuw.")
+        }
       } else {
         setIsEmailSent(true)
       }
     } catch (error) {
-      alert("Er is een fout opgetreden. Probeer het opnieuw.")
+      setError("Er is een fout opgetreden. Probeer het opnieuw.")
     } finally {
       setIsLoading(false)
     }
@@ -86,6 +92,12 @@ export function LoginForm() {
               className="h-12"
             />
           </div>
+
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded text-sm">
+              {error}
+            </div>
+          )}
 
           <Button 
             type="submit" 

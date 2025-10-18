@@ -13,6 +13,14 @@ export const authOptions: NextAuthOptions = {
       server: "",
       from: process.env.EMAIL_FROM || "noreply@noekaas.nl",
       sendVerificationRequest: async ({ identifier: email, url }) => {
+        const existingUser = await db.user.findUnique({
+          where: { email },
+        })
+
+        if (!existingUser) {
+          throw new Error("NO_USER_FOUND")
+        }
+
         try {
           await resend.emails.send({
             from: process.env.EMAIL_FROM || "onboarding@resend.dev",
