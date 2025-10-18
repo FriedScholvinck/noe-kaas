@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { Nav } from "@/components/layout/nav"
 import { Footer } from "@/components/layout/footer"
-import { CatalogFilters } from "@/components/catalog/catalog-filters"
+import { HorizontalFilters } from "@/components/catalog/horizontal-filters"
 import { ProductGrid } from "@/components/catalog/product-grid"
 
 export default async function PortaalPage({
@@ -23,13 +23,29 @@ export default async function PortaalPage({
     },
   })
 
+  let userOrderHistory = undefined
+  if (session?.user?.id) {
+    userOrderHistory = await db.order.findMany({
+      where: { 
+        userId: session.user.id,
+        status: "placed"
+      },
+      include: {
+        items: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    })
+  }
+
   return (
     <>
-      <Nav />
+      <Nav session={session} />
       <main className="min-h-screen bg-cheese-cream">
         <div className="container mx-auto px-4 py-12">
           <div className="mb-8">
-            <h1 className="text-4xl font-serif font-bold mb-2 text-cheese-navy">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold mb-2 text-cheese-navy">
               Ons assortiment
             </h1>
             <p className="text-muted-foreground">
@@ -37,23 +53,18 @@ export default async function PortaalPage({
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-4 gap-8">
-            <aside className="lg:col-span-1">
-              <Suspense fallback={<div>Filters laden...</div>}>
-                <CatalogFilters />
-              </Suspense>
-            </aside>
+          <Suspense fallback={<div>Filters laden...</div>}>
+            <HorizontalFilters />
+          </Suspense>
 
-            <div className="lg:col-span-3">
-              <Suspense fallback={<div>Producten laden...</div>}>
-                <ProductGrid 
-                  products={products} 
-                  searchParams={searchParams}
-                  isLoggedIn={!!session}
-                />
-              </Suspense>
-            </div>
-          </div>
+          <Suspense fallback={<div>Producten laden...</div>}>
+            <ProductGrid 
+              products={products} 
+              searchParams={searchParams}
+              isLoggedIn={!!session}
+              userOrderHistory={userOrderHistory}
+            />
+          </Suspense>
         </div>
       </main>
       <Footer />

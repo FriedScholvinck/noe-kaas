@@ -35,7 +35,7 @@ export function AddToCartButton({
       />
       <Button onClick={handleAdd} className="flex-1">
         <Plus className="w-4 h-4 mr-1" />
-        Toevoegen ({unit})
+        ({unit})
       </Button>
     </div>
   )

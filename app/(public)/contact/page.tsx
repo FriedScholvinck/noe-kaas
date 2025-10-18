@@ -7,7 +7,7 @@ export default function ContactPage() {
     <div className="container mx-auto px-4 py-20">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-serif font-bold mb-4 text-cheese-navy">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold mb-4 text-cheese-navy">
             Contact
           </h1>
         </div>
@@ -17,7 +17,7 @@ export default function ContactPage() {
             <div className="flex items-center gap-4">
               <Mail className="w-6 h-6 text-cheese-gold" />
               <a href="mailto:hein@jeroennoekaas.nl" className="text-lg hover:text-cheese-navy">
-                hein@jeroennoekaas.nl
+                info@noekaas.nl
               </a>
             </div>
 

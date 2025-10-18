@@ -6,10 +6,10 @@ export type ProductFilters = {
   country?: string
   ripeningMin?: number
   ripeningMax?: number
-  sortBy?: "name" | "ripening-asc" | "ripening-desc"
+  sortBy?: "name" | "ripening-asc" | "ripening-desc" | "popular"
 }
 
-export function applyProductFilters(products: any[], filters: ProductFilters) {
+export function applyProductFilters(products: any[], filters: ProductFilters, userOrderHistory?: any[]) {
   let filtered = [...products]
 
   if (filters.search) {
@@ -60,9 +60,46 @@ export function applyProductFilters(products: any[], filters: ProductFilters) {
     filtered.sort((a, b) => (a.ripeningMonths || 0) - (b.ripeningMonths || 0))
   } else if (filters.sortBy === "ripening-desc") {
     filtered.sort((a, b) => (b.ripeningMonths || 0) - (a.ripeningMonths || 0))
+  } else if (filters.sortBy === "popular") {
+    filtered = sortByPopularity(filtered, userOrderHistory)
   }
 
   return filtered
+}
+
+function sortByPopularity(products: any[], userOrderHistory?: any[]) {
+  const productOrderCounts = new Map<string, number>()
+  
+  if (userOrderHistory) {
+    userOrderHistory.forEach((order: any) => {
+      order.items?.forEach((item: any) => {
+        const count = productOrderCounts.get(item.productId) || 0
+        productOrderCounts.set(item.productId, count + item.quantity)
+      })
+    })
+  }
+
+  return products.sort((a, b) => {
+    const aIsOwnBrand = isOwnBrand(a.name)
+    const bIsOwnBrand = isOwnBrand(b.name)
+    
+    if (aIsOwnBrand && !bIsOwnBrand) return -1
+    if (!aIsOwnBrand && bIsOwnBrand) return 1
+    
+    const aOrderCount = productOrderCounts.get(a.id) || 0
+    const bOrderCount = productOrderCounts.get(b.id) || 0
+    
+    if (aOrderCount !== bOrderCount) {
+      return bOrderCount - aOrderCount
+    }
+    
+    return a.name.localeCompare(b.name)
+  })
+}
+
+function isOwnBrand(productName: string): boolean {
+  const name = productName.toLowerCase()
+  return name.includes('old friends') || name.includes('best friends')
 }
 
 export const FLORA_TYPES = [

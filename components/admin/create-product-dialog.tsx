@@ -161,14 +161,15 @@ export function CreateProductDialog({
             </div>
 
             <div>
-              <Label htmlFor="unit">Eenheid</Label>
+              <Label htmlFor="unit">Bestelgrootte</Label>
               <Select name="unit" defaultValue="kg">
                 <SelectTrigger id="unit">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="kg">kg</SelectItem>
-                  <SelectItem value="piece">stuk</SelectItem>
+                  <SelectItem value="kg">per kg</SelectItem>
+                  <SelectItem value="piece">per stuk</SelectItem>
+                  <SelectItem value="wheel">per wiel</SelectItem>
                 </SelectContent>
               </Select>
             </div>

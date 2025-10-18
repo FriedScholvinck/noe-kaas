@@ -7,13 +7,13 @@ import { Truck, Award, Users, MapPin, Phone, Clock } from "lucide-react"
 export default function HomePage() {
   return (
     <div>
-      <section className="bg-cheese-navy text-white py-32">
+      <section className="bg-cheese-navy text-white py-16 sm:py-24 md:py-32">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-6xl md:text-7xl font-serif font-bold mb-8">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-serif font-bold mb-6 sm:mb-8">
             Kaasgroothandel<br/>voor horeca en bedrijven
           </h1>
           <Link href="/portaal">
-            <Button size="lg" variant="secondary" className="text-lg px-12 py-6">
+            <Button size="lg" variant="secondary" className="text-base sm:text-lg px-8 sm:px-12 py-4 sm:py-6">
               Bekijk assortiment
             </Button>
           </Link>
@@ -25,18 +25,18 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-12 max-w-5xl mx-auto">
             <div className="text-center">
               <Users className="w-16 h-16 text-cheese-gold mb-4 mx-auto" />
-              <h3 className="font-serif text-2xl font-bold">Betrouwbaar</h3>
+              <h3 className="font-serif text-lg sm:text-xl md:text-2xl font-bold">Betrouwbaar</h3>
             </div>
             
             <div className="text-center">
               <Award className="w-16 h-16 text-cheese-gold mb-4 mx-auto" />
-              <h3 className="font-serif text-2xl font-bold">Hoge Kwaliteit</h3>
+              <h3 className="font-serif text-lg sm:text-xl md:text-2xl font-bold">Hoge Kwaliteit</h3>
             </div>
 
 
             <div className="text-center">
               <Truck className="w-16 h-16 text-cheese-gold mb-4 mx-auto" />
-              <h3 className="font-serif text-2xl font-bold">Snel</h3>
+              <h3 className="font-serif text-lg sm:text-xl md:text-2xl font-bold">Snel</h3>
             </div>
           </div>
         </div>
@@ -49,7 +49,7 @@ export default function HomePage() {
             <div className="text-center mb-16">
               <div className="inline-block relative">
                 <div className="absolute -inset-4 bg-cheese-gold/20 rounded-full blur-xl"></div>
-                <h2 className="text-5xl md:text-6xl font-serif font-bold text-cheese-navy relative z-10">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-cheese-navy relative z-10">
                   Ons verhaal
                 </h2>
               </div>
@@ -81,7 +81,7 @@ export default function HomePage() {
                 <div className="relative">
                   <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-cheese-gold to-orange-400 rounded-full"></div>
                   <div className="pl-8">
-                    <h3 className="text-2xl font-serif font-bold text-cheese-navy mb-4">Sinds 1996</h3>
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-serif font-bold text-cheese-navy mb-4">Sinds 1996</h3>
                     <p className="text-lg text-gray-700 leading-relaxed">
                       Jeroen Noë werkt al 47 jaar in de kaasindustrie. In 1996 is hij voor zichzelf begonnen in Huizen.
                     </p>
@@ -91,7 +91,7 @@ export default function HomePage() {
                 <div className="relative">
                   <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-cheese-gold to-orange-400 rounded-full"></div>
                   <div className="pl-8">
-                    <h3 className="text-2xl font-serif font-bold text-cheese-navy mb-4">Uitbreiding</h3>
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-serif font-bold text-cheese-navy mb-4">Uitbreiding</h3>
                     <p className="text-lg text-gray-700 leading-relaxed">
                       Na 5 jaar in de groothandel, richt zijn zoon Mark in 2020 de <a href="https://kaasbar.amsterdam/" target="_blank" rel="noopener noreferrer" className="text-cheese-gold hover:text-cheese-navy underline font-semibold transition-colors">Kaasbar Amsterdam</a> op. Inmiddels werken Hein en Job ook in het familiebedrijf.
                     </p>
@@ -101,7 +101,7 @@ export default function HomePage() {
                 <div className="relative">
                   <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-cheese-gold to-orange-400 rounded-full"></div>
                   <div className="pl-8">
-                    <h3 className="text-2xl font-serif font-bold text-cheese-navy mb-4">Onze klanten</h3>
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-serif font-bold text-cheese-navy mb-4">Onze klanten</h3>
                     <p className="text-lg text-gray-700 leading-relaxed">
                       Wij leveren aan kaas delicatessenzaken, horeca, toerisme, marktliederen en groothandels. 
                       Onze eigen merken zijn <span className="font-semibold text-cheese-navy">Old Friends & Best Friends</span>.
@@ -112,7 +112,7 @@ export default function HomePage() {
                 <div className="relative">
                   <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-cheese-gold to-orange-400 rounded-full"></div>
                   <div className="pl-8">
-                    <h3 className="text-2xl font-serif font-bold text-cheese-navy mb-4">Nieuwe generatie</h3>
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-serif font-bold text-cheese-navy mb-4">Nieuwe generatie</h3>
                     <p className="text-lg text-gray-700 leading-relaxed">
                       Sinds 2025 zijn wij gevestigd in Weesp, om dichter bij onze klanten te zijn. In 2026 hebben Hein en Job het bedrijf overgenomen. Jeroen is nog nauw betrokken bij de dagelijkse gang van zaken.
                     </p>
@@ -127,7 +127,7 @@ export default function HomePage() {
                   <div className="w-12 h-12 bg-cheese-gold rounded-full flex items-center justify-center mr-4">
                     <span className="text-white font-bold text-lg">30</span>
                   </div>
-                  <h3 className="text-3xl font-serif font-bold text-cheese-navy">Jaar kwaliteit</h3>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-cheese-navy">Jaar kwaliteit</h3>
                 </div>
                 <p className="text-xl text-gray-700 font-medium">
                   Wij leveren al 30 jaar kazen van hoge kwaliteit met een snelle en betrouwbare service.
@@ -140,7 +140,7 @@ export default function HomePage() {
 
       <section className="py-24 bg-cheese-cream">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-serif font-bold mb-8 text-cheese-navy">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold mb-6 sm:mb-8 text-cheese-navy">
             Samenwerken?
           </h2>
           <Link href="/contact">
@@ -153,7 +153,7 @@ export default function HomePage() {
 
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-serif font-bold mb-12 text-center text-cheese-navy">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold mb-8 sm:mb-12 text-center text-cheese-navy">
             Bezoek onze winkel
           </h2>
           

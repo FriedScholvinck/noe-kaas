@@ -22,23 +22,53 @@ export default async function AdminLayout({
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-6">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between mb-4">
             <Link href="/" className="text-xl font-serif font-bold text-cheese-navy">
               Noë Kaas Admin
             </Link>
-            <nav className="flex gap-4">
-              <Link href="/admin" className="text-sm hover:text-cheese-navy">
-                Dashboard
-              </Link>
-              <Link href="/portaal" className="text-sm hover:text-cheese-navy">
-                Portaal
-              </Link>
-            </nav>
+            <span className="text-sm text-muted-foreground">
+              {session.user.email}
+            </span>
           </div>
-          <span className="text-sm text-muted-foreground">
-            {session.user.email}
-          </span>
+          <nav className="flex gap-4 flex-wrap">
+            <Link 
+              href="/admin" 
+              className="text-sm hover:text-cheese-navy transition-colors px-3 py-1.5 rounded hover:bg-gray-100"
+            >
+              Dashboard
+            </Link>
+            <Link 
+              href="/admin/products" 
+              className="text-sm hover:text-cheese-navy transition-colors px-3 py-1.5 rounded hover:bg-gray-100"
+            >
+              Producten
+            </Link>
+            <Link 
+              href="/admin/orders" 
+              className="text-sm hover:text-cheese-navy transition-colors px-3 py-1.5 rounded hover:bg-gray-100"
+            >
+              Bestellingen
+            </Link>
+            <Link 
+              href="/admin/clients" 
+              className="text-sm hover:text-cheese-navy transition-colors px-3 py-1.5 rounded hover:bg-gray-100"
+            >
+              Klanten
+            </Link>
+            <Link 
+              href="/admin/media" 
+              className="text-sm hover:text-cheese-navy transition-colors px-3 py-1.5 rounded hover:bg-gray-100"
+            >
+              Media
+            </Link>
+            <Link 
+              href="/portaal" 
+              className="text-sm hover:text-cheese-navy transition-colors px-3 py-1.5 rounded hover:bg-gray-100"
+            >
+              Portaal
+            </Link>
+          </nav>
         </div>
       </header>
       <main className="container mx-auto px-4 py-8">

@@ -28,10 +28,12 @@ export function ProductGrid({
   products,
   searchParams,
   isLoggedIn,
+  userOrderHistory,
 }: {
   products: Product[]
   searchParams: { [key: string]: string | undefined }
   isLoggedIn: boolean
+  userOrderHistory?: any[]
 }) {
   const filteredProducts = useMemo(() => {
     const filters: ProductFilters = {
@@ -42,8 +44,8 @@ export function ProductGrid({
       country: searchParams.country,
       sortBy: searchParams.sortBy as any,
     }
-    return applyProductFilters(products, filters)
-  }, [products, searchParams.search, searchParams.floraType, searchParams.packagingType, searchParams.milkType, searchParams.country, searchParams.sortBy])
+    return applyProductFilters(products, filters, userOrderHistory)
+  }, [products, searchParams.search, searchParams.floraType, searchParams.packagingType, searchParams.milkType, searchParams.country, searchParams.sortBy, userOrderHistory])
 
   if (filteredProducts.length === 0) {
     return (
@@ -54,7 +56,7 @@ export function ProductGrid({
   }
 
   return (
-    <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
       {filteredProducts.map((product) => (
         <Card key={product.id} className="overflow-hidden">
           <div className="aspect-square relative bg-white">
@@ -64,8 +66,14 @@ export function ProductGrid({
                 alt={product.image.alt}
                 fill
                 className="object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                }}
+                unoptimized={product.image.url.includes('wikimedia')}
               />
-            ) : (
+            ) : null}
+            {(!product.image || product.image.url.includes('wikimedia')) && (
               <div className="w-full h-full flex items-center justify-center bg-cheese-cream">
                 <span className="text-4xl">🧀</span>
               </div>

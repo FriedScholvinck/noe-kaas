@@ -111,7 +111,7 @@ export function ProductList({ products, images }: { products: Product[], images:
                     {product.ripeningMonths && (
                       <Badge variant="outline">{product.ripeningMonths} mnd</Badge>
                     )}
-                    <Badge>{product.unit}</Badge>
+                    <Badge>{product.unit === 'kg' ? 'per kg' : product.unit === 'piece' ? 'per stuk' : 'per wiel'}</Badge>
                   </div>
                 </div>
               </div>

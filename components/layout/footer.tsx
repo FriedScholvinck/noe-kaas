@@ -4,7 +4,7 @@ export function Footer() {
       <div className="container mx-auto py-12 px-4">
         <div className="text-center">
           <h3 className="font-serif text-2xl font-bold mb-8 text-cheese-navy">Noë Kaas</h3>
-          <div className="flex justify-center gap-8 mb-8 text-sm">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-8 mb-8 text-sm">
             <div>info@noekaas.nl</div>
             <div>+31 (0)20 123 4567</div>
             <div>Weesp</div>

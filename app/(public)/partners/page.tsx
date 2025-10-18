@@ -66,7 +66,7 @@ export default function PartnersPage() {
     <div className="container mx-auto px-4 py-20">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-serif font-bold text-cheese-navy">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-cheese-navy">
             Partners
           </h1>
           <p className="text-lg text-gray-600 mt-4">
@@ -117,7 +117,7 @@ export default function PartnersPage() {
         </div>
 
         <div className="text-center bg-cheese-cream rounded-lg py-12 px-8">
-          <h2 className="text-3xl font-serif font-bold mb-6 text-cheese-navy">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-serif font-bold mb-6 text-cheese-navy">
             Ook partner worden?
           </h2>
           <a href="/contact" className="text-cheese-navy text-lg font-semibold hover:underline">
