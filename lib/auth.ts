@@ -21,6 +21,14 @@ export const authOptions: NextAuthOptions = {
           throw new Error("NO_USER_FOUND")
         }
 
+        if (process.env.NODE_ENV === "development") {
+          console.log("\n🔐 DEVELOPMENT: Magic link voor", email)
+          console.log("👉 Kopieer deze URL in je browser om in te loggen:")
+          console.log(url)
+          console.log("\n")
+          return
+        }
+
         try {
           await resend.emails.send({
             from: process.env.EMAIL_FROM || "onboarding@resend.dev",
