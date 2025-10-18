@@ -38,6 +38,7 @@ Nederlandse kaasgroothandel. Online visitekaartje en invite-only bestelportaal v
 - Node.js 18+
 - pnpm (of npm/yarn)
 - Vercel account (voor Postgres en Blob)
+- Resend account (voor email magic links)
 
 ### 2. Project clonen en dependencies installeren
 
@@ -47,7 +48,37 @@ cd noe-kaas
 pnpm install
 ```
 
-### 3. Database en storage opzetten via Vercel
+### 3. Environment variables
+
+**Voor lokale development:**
+
+1. Login bij Vercel CLI:
+   ```bash
+   npx vercel login
+   npx vercel link
+   ```
+
+2. Pull environment variables:
+   ```bash
+   npx vercel env pull .env.local
+   ```
+
+3. **Belangrijk**: Update `.env.local` voor lokaal gebruik:
+   ```bash
+   # Verander NEXTAUTH_URL naar localhost
+   NEXTAUTH_URL="http://localhost:3000"
+   ```
+
+4. Zorg dat je een Resend API key hebt:
+   - Ga naar https://resend.com/api-keys
+   - Maak een nieuwe API key aan
+   - Voeg toe aan `.env.local`:
+     ```
+     RESEND_API_KEY=re_jouw_api_key
+     EMAIL_FROM=onboarding@resend.dev
+     ```
+
+### 4. Database en storage opzetten via Vercel
 
 #### Optie A: Automatisch via Vercel MCP (aanbevolen)
 
