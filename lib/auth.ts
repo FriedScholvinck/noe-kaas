@@ -25,7 +25,7 @@ export const authOptions: NextAuthOptions = {
           return null
         }
 
-        const validPassword = credentials.password === process.env.ADMIN_PASSWORD || credentials.password === "^D2CzwwJ3R&M"
+        const validPassword = credentials.password === process.env.ADMIN_PASSWORD
 
         if (!validPassword) {
           return null
