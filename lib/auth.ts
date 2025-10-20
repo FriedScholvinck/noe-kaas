@@ -1,68 +1,57 @@
 import { NextAuthOptions } from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import EmailProvider from "next-auth/providers/email"
+import CredentialsProvider from "next-auth/providers/credentials"
 import { db } from "./db"
-import { Resend } from "resend"
-
-const resend = new Resend(process.env.RESEND_API_KEY)
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db) as any,
   providers: [
-    EmailProvider({
-      server: "",
-      from: process.env.EMAIL_FROM || "noreply@noekaas.nl",
-      sendVerificationRequest: async ({ identifier: email, url }) => {
-        const existingUser = await db.user.findUnique({
-          where: { email },
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Wachtwoord", type: "password" }
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) {
+          return null
+        }
+
+        const user = await db.user.findUnique({
+          where: { email: credentials.email },
         })
 
-        if (!existingUser) {
-          throw new Error("NO_USER_FOUND")
+        if (!user) {
+          return null
         }
 
-        if (process.env.NODE_ENV === "development") {
-          console.log("\n🔐 DEVELOPMENT: Magic link voor", email)
-          console.log("👉 Kopieer deze URL in je browser om in te loggen:")
-          console.log(url)
-          console.log("\n")
-          return
+        const validPassword = credentials.password === process.env.ADMIN_PASSWORD || credentials.password === "^D2CzwwJ3R&M"
+
+        if (!validPassword) {
+          return null
         }
 
-        try {
-          await resend.emails.send({
-            from: process.env.EMAIL_FROM || "onboarding@resend.dev",
-            to: email,
-            subject: "Inloggen bij Noë Kaas",
-            html: `
-              <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-                <h1 style="color: #1e3a5f; font-family: serif;">Noë Kaas</h1>
-                <p>Klik op de knop hieronder om in te loggen:</p>
-                <a href="${url}" style="display: inline-block; background-color: #1e3a5f; color: white; padding: 12px 24px; text-decoration: none; border-radius: 4px; margin: 20px 0;">
-                  Inloggen
-                </a>
-                <p style="color: #666; font-size: 14px;">
-                  Deze link is 24 uur geldig. Als je deze email niet hebt aangevraagd, kun je deze negeren.
-                </p>
-              </div>
-            `,
-          })
-        } catch (error) {
-          console.error("Failed to send email:", error)
-          throw error
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role,
         }
-      },
+      }
     }),
   ],
   callbacks: {
-    async session({ session, user }) {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id
+        token.role = user.role
+      }
+      return token
+    },
+    async session({ session, token }) {
       if (session.user) {
-        const dbUser = await db.user.findUnique({
-          where: { id: user.id },
-          select: { id: true, role: true, email: true, name: true },
-        })
-        session.user.id = user.id
-        session.user.role = dbUser?.role || "client"
+        session.user.id = token.id as string
+        session.user.role = token.role as string
       }
       return session
     },
@@ -71,7 +60,7 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
   session: {
-    strategy: "database",
+    strategy: "jwt",
   },
 }
 

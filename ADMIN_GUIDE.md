@@ -12,24 +12,17 @@ De volgende gebruikers hebben admin rechten:
 - fried.scholvinck@gmail.com
 - hein@jeroennoekaas.nl
 
-### Admin Setup Script
+### Inloggen
 
-Om admin rollen in te stellen of te verifiëren, voer uit:
+1. Ga naar `/login`
+2. Voer je admin email in
+3. Voer het admin wachtwoord in
+4. Je wordt automatisch doorgestuurd naar `/portaal`
+5. Ga naar `/admin` voor het admin dashboard
 
-```bash
-pnpm run admin:setup
-```
-
-Dit script:
-- Controleert of de admin emails bestaan in de database
-- Maakt admin gebruikers aan als ze nog niet bestaan
-- Upgradet bestaande gebruikers naar admin rol indien nodig
-
-## Toegang tot Admin Panel
-
-1. Log in met een admin email op `/login`
-2. Klik op de magic link in je email
-3. Je wordt automatisch doorgestuurd naar `/admin`
+**Wachtwoord:** 
+- Production: Ingesteld via `ADMIN_PASSWORD` environment variable op Vercel
+- Development fallback: `^D2CzwwJ3R&M`
 
 ## Admin Functionaliteit
 
@@ -169,11 +162,12 @@ Het admin systeem gebruikt Resend voor email verzending:
 ### Architectuur
 
 - **Framework:** Next.js 14 (App Router)
-- **Database:** PostgreSQL via Prisma
-- **Authenticatie:** NextAuth.js met email magic links
+- **Database:** PostgreSQL via Prisma (Neon)
+- **Authenticatie:** NextAuth.js met credentials (email + password)
 - **Email:** Resend
 - **Storage:** Vercel Blob
 - **UI:** Tailwind CSS + shadcn/ui
+- **Sessions:** JWT-based (stateless)
 
 ### Database Schema
 
@@ -197,17 +191,16 @@ Het admin systeem gebruikt Resend voor email verzending:
 - Role check in admin layout
 - Server actions verifiëren admin rol
 - Alleen admins kunnen orders van andere gebruikers zien
+- Password-based authentication voor admin toegang
+- JWT sessions (signed tokens, geen database lookups)
 
 ## Troubleshooting
 
 ### "Unauthorized" bij admin toegang
 
-1. Controleer of je email admin rechten heeft:
-   ```bash
-   pnpm run admin:setup
-   ```
-
-2. Log uit en opnieuw in
+1. Verifieer dat je email in de database bestaat met role="admin"
+2. Controleer dat je het juiste wachtwoord gebruikt
+3. Log uit en opnieuw in met de juiste credentials
 
 ### Afbeeldingen laden niet
 
