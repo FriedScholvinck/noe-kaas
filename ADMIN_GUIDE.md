@@ -21,8 +21,8 @@ De volgende gebruikers hebben admin rechten:
 5. Ga naar `/admin` voor het admin dashboard
 
 **Wachtwoord:** 
-- Production: Ingesteld via `ADMIN_PASSWORD` environment variable op Vercel
-- Development fallback: `^D2CzwwJ3R&M`
+- Ingesteld via `ADMIN_PASSWORD` environment variable op Vercel
+- Vraag de beheerder om het wachtwoord
 
 ## Admin Functionaliteit
 
