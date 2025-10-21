@@ -71,6 +71,7 @@ model Product {
   pricePerKg     Float?
   unit           String   @default("kg")
   imageId        String?
+  isPublic       Boolean  @default(false)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   

@@ -1,4 +1,5 @@
 import { UtensilsCrossed, Warehouse, Ship, Beef, Store, Truck, Map } from "lucide-react"
+import Image from "next/image"
 
 const customerTypes = [
   { name: "Horeca", icon: UtensilsCrossed },
@@ -14,50 +15,62 @@ const partners = [
   {
     name: "Kaasbar Amsterdam",
     url: "https://kaasbar.amsterdam",
+    logo: "/images/partners/kaasbar.png",
   },
   {
     name: "Biologische Slager Gerrit Takke",
     url: "https://biologischeslagerijgerrittakke.nl",
+    logo: "/images/partners/biologische_slager.png",
   },
   {
     name: "Old Amsterdam Store",
     url: "https://oldamsterdam.com/cheese-stores-tasting-amsterdam",
+    logo: "/images/partners/old_amsterdam.png",
   },
   {
     name: "De Rooij Groothandel",
     url: "https://www.derooijgroothandel.nl",
+    logo: "/images/partners/rooij.png",
   },
   {
     name: "Royal A-Ware",
     url: "https://www.royal-aware.com/nl",
+    logo: "/images/partners/ware.png",
   },
   {
     name: "Westland Kaas",
     url: "https://www.westlandkaas.nl",
+    logo: "/images/partners/westland.png",
   },
   {
     name: "Oudwijker",
     url: "https://www.oudwijker.nl",
+    logo: "/images/partners/oudwijker.png",
   },
   {
     name: "Dikhoeve",
     url: "https://www.dikhoeve.nl",
+    logo: "/images/partners/dikhoeve.png",
   },
   {
     name: "Brommels",
     url: "https://brommels.nl",
+    logo: "/images/partners/brommels.png",
   },
   {
     name: "Remeker",
     url: "https://www.remeker.nl",
+    logo: "/images/partners/remeker.png",
   },
   {
     name: "Witte van Koning",
     url: "https://www.kaasmakerijkoning.nl",
+    logo: "/images/partners/koning.png",
   },
   {
     name: "Kaasboerderij Berkhout",
     url: "https://kaasboerderijberkhout.com",
+    logo: "/images/partners/berkhout.png",
   },
 ]
 
@@ -75,7 +88,7 @@ export default function PartnersPage() {
         </div>
 
         <div className="mb-20 bg-cheese-cream/30 rounded-2xl py-12 px-4">
-          <div className="flex flex-wrap justify-center gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-6 max-w-6xl mx-auto">
             {customerTypes.map((type) => {
               const Icon = type.icon
               return (
@@ -83,10 +96,10 @@ export default function PartnersPage() {
                   key={type.name}
                   className="flex flex-col items-center justify-center group cursor-default transition-transform hover:scale-110"
                 >
-                  <div className="mb-3 p-4 rounded-full bg-white group-hover:bg-cheese-navy transition-colors shadow-sm">
-                    <Icon className="w-12 h-12 text-cheese-navy group-hover:text-white transition-colors" strokeWidth={1.5} />
+                  <div className="mb-3 p-3 sm:p-4 rounded-full bg-white group-hover:bg-cheese-navy transition-colors shadow-sm">
+                    <Icon className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-cheese-navy group-hover:text-white transition-colors" strokeWidth={1.5} />
                   </div>
-                  <p className="text-sm font-semibold text-cheese-navy whitespace-nowrap">
+                  <p className="text-xs sm:text-sm font-semibold text-cheese-navy text-center leading-tight">
                     {type.name}
                   </p>
                 </div>
@@ -105,9 +118,13 @@ export default function PartnersPage() {
               className="text-center group transition-transform hover:scale-105"
             >
               <div className="h-32 bg-cheese-cream rounded-lg flex items-center justify-center mb-4 group-hover:bg-cheese-navy transition-colors">
-                <span className="text-3xl font-serif font-bold text-cheese-navy group-hover:text-cheese-cream transition-colors">
-                  {partner.name.split(' ').map(w => w[0]).join('')}
-                </span>
+                <Image
+                  src={partner.logo}
+                  alt={`${partner.name} logo`}
+                  width={120}
+                  height={80}
+                  className="max-w-[120px] max-h-[80px] object-contain"
+                />
               </div>
               <h3 className="font-serif text-base font-bold text-cheese-navy group-hover:text-cheese-navy/80">
                 {partner.name}

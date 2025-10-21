@@ -17,6 +17,7 @@ type ProductInput = {
   pricePerKg: number | null
   unit: string
   imageId: string | null
+  isPublic: boolean
 }
 
 export async function createProduct(data: ProductInput) {
